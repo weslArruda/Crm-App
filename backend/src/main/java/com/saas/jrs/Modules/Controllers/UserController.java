@@ -16,9 +16,10 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public UserEntity create(@RequestBody UserEntity userEntity) {
        return this.userRepository.save(userEntity);
     }
+
     
 }
