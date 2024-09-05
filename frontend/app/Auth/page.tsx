@@ -13,11 +13,11 @@ export default function AuthPage() {
         
             <Group justify='center' m='25vh' >
                 
-                <Fieldset legend='' radius='lg' mih='30vh' w='30vw' maw='40vh'>
+                <Fieldset legend='' radius='lg' mih='30vh' w='30vw'>
                     <h1>Login</h1>
-                    <TextInput label='Email' placeholder='Email' mt='2vw' maw='40vh' required />
+                    <TextInput label='Email' placeholder='Email' mt='2vw' required />
 
-                    <PasswordInput label='Senha' placeholder='Sua senha' mt='2vw' maw='40vh' required/>
+                    <PasswordInput label='Senha' placeholder='Sua senha' mt='2vw' required/>
 
                     <Group justify='center' mt='3.5vh'>
                         <Link href='/Dash'>

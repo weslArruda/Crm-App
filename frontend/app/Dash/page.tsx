@@ -2,7 +2,7 @@
 
 import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Button, Menu, rem, UnstyledButton } from '@mantine/core';
-import { IconHome2, IconGauge, IconChevronRight, IconCircleOff, IconDashboard, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSearch, IconSettings, IconTrash } from '@tabler/icons-react';
+import { IconHome2, IconGauge, IconChevronRight, IconCircleOff, IconDashboard, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSearch, IconSettings, IconTrash, IconFingerprint, IconAnalyze, IconArchive, IconUserCode } from '@tabler/icons-react';
 import Image from 'next/image'
 
 
@@ -32,11 +32,11 @@ export default function DashPage() {
 
                 <Group>
                     <ColorSchemeToggle />
-                    
+
                     <Menu shadow="md" width={200}>
                         <Menu.Target>
                             <UnstyledButton>
-                                <Avatar radius="xl"/>    
+                                <Avatar radius="xl" />
                             </UnstyledButton>
                         </Menu.Target>
 
@@ -73,32 +73,54 @@ export default function DashPage() {
             </Group>
             {/* Sidebar left */}
             <Group maw={200}>
-
+                
                 <NavLink
                     href="#required-for-focus"
                     label="Dashboard"
-                    leftSection={<IconLayoutDashboard size="1rem" stroke={1.5} />} />
+                    leftSection={<IconLayoutDashboard size="1rem" stroke={1.5} />}
+                    variant='filled'
+                    active>
+
+                    <NavLink label="Geral" href="#required-for-focus" />
+                    <NavLink label="Proposal dashboard" href="#required-for-focus" />
+                    <NavLink label="Sellers" href="#required-for-focus" />
+                </NavLink>
+
+               <NavLink
+                    href="#required-for-focus"
+                    label="Sales"
+                    leftSection={<IconArchive size="1rem" stroke={1.5} />}
+                    childrenOffset={18}>
+
+                    <NavLink label="Register a new proposal" href="#required-for-focus" />
+                    <NavLink label="Proposal progress" href="#required-for-focus" />
+                    <NavLink label="View proposals" href="#required-for-focus" />
+                </NavLink>
+
                 <NavLink
                     href="#required-for-focus"
-                    label="With right section"
-                    leftSection={<IconGauge size="1rem" stroke={1.5} />}
-                    rightSection={
-                        <IconChevronRight size="0.8rem" stroke={1.5} className="mantine-rotate-rtl" />
-                    }
-                />
+                    label="Users"
+                    leftSection={<IconUserCode size="1rem" stroke={1.5} />}
+                    childrenOffset={18}>
+
+                    <NavLink label="Create new user" href="#required-for-focus" />
+                    <NavLink label="Modify user" href="#required-for-focus" />
+                    <NavLink label="View users" href="#required-for-focus" />
+                </NavLink>
+
                 <NavLink
                     href="#required-for-focus"
                     label="Disabled"
                     leftSection={<IconCircleOff size="1rem" stroke={1.5} />}
-                    disabled
-                />
+                    disabled/>
+
                 <NavLink
                     href="#required-for-focus"
-                    label="With description"
+                    label="Notifications"
                     description="Additional information"
                     leftSection={
                         <Badge size="xs" color="red" circle>
-                            3
+                            9
                         </Badge>
                     }
                 />
