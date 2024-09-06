@@ -1,21 +1,21 @@
 'use client'
 
 import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
-import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Button, Menu, rem, UnstyledButton } from '@mantine/core';
-import { IconHome2, IconGauge, IconChevronRight, IconCircleOff, IconDashboard, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSearch, IconSettings, IconTrash, IconFingerprint, IconAnalyze, IconArchive, IconUserCode } from '@tabler/icons-react';
+import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Menu, rem, UnstyledButton } from '@mantine/core';
+import { IconCircleOff, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSettings, IconTrash, IconArchive, IconUserCode } from '@tabler/icons-react';
 import Image from 'next/image'
 
 
 const items = [
-    { title: 'Home', href: '#' },
     { title: 'Dashboard', href: '#' },
+    { title: 'Geral', href: '#' }
 ].map((item, index) => (
     <Anchor href={item.href} key={index}>
         {item.title}
     </Anchor>
 ));
 
-export default function DashPage() {
+export default function UsersViewPage() {
     return (
         <>
             {/* header */}
@@ -75,37 +75,41 @@ export default function DashPage() {
             <Group maw={200}>
                 
                 <NavLink
-                    href="#required-for-focus"
+                    href=""
                     label="Dashboard"
                     leftSection={<IconLayoutDashboard size="1rem" stroke={1.5} />}
-                    variant='filled'
-                    active>
+                    >
 
-                    <NavLink label="Geral" href="#required-for-focus" />
-                    <NavLink label="Proposal dashboard" href="#required-for-focus" />
-                    <NavLink label="Sellers" href="#required-for-focus" />
+                    <NavLink label="Geral" href="/Dashboard/Geral"/>
+                    <NavLink label="Proposals" href="/Dashboard/Proposals" />
+                    <NavLink label="Sellers" href="/Dashboard/Sellers" />
                 </NavLink>
 
                <NavLink
                     href="#required-for-focus"
                     label="Sales"
                     leftSection={<IconArchive size="1rem" stroke={1.5} />}
-                    childrenOffset={18}>
+                    childrenOffset={18}
+                    >
 
-                    <NavLink label="Register a new proposal" href="#required-for-focus" />
-                    <NavLink label="Proposal progress" href="#required-for-focus" />
-                    <NavLink label="View proposals" href="#required-for-focus" />
+                    <NavLink label="Register a new proposal" href="/Sales/Create" />
+                    <NavLink label="Proposal progress" href="/Sales/Progress" />
+                    <NavLink label="View proposals" href="/Sales/View" />
                 </NavLink>
 
                 <NavLink
                     href="#required-for-focus"
                     label="Users"
                     leftSection={<IconUserCode size="1rem" stroke={1.5} />}
-                    childrenOffset={18}>
+                    childrenOffset={18}
+                    variant='filled'
+                    opened
+                    active
+>
 
-                    <NavLink label="Create new user" href="#required-for-focus" />
-                    <NavLink label="Modify user" href="#required-for-focus" />
-                    <NavLink label="View users" href="#required-for-focus" />
+                    <NavLink label="Create new user" href="/Users/Create" />
+                    <NavLink label="Modify user" href="/Users/Modify" />
+                    <NavLink label="View users" href="/Users/View" active/>
                 </NavLink>
 
                 <NavLink

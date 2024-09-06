@@ -13,14 +13,18 @@ export default function AuthPage() {
         
             <Group justify='center' m='25vh' >
                 
-                <Fieldset legend='' radius='lg' mih='30vh' w='30vw'>
-                    <h1>Login</h1>
-                    <TextInput label='Email' placeholder='Email' mt='2vw' required />
+                <Fieldset legend='' radius='lg' mih='450px' miw='300px' maw='50vw' mah='300px' w='20vw' h='30vh'>
+
+                    <Group justify='center'>
+                        <h1>Login</h1>
+                    </Group>
+                    
+                    <TextInput label='Email' placeholder='Email' mt='1vw' required />
 
                     <PasswordInput label='Senha' placeholder='Sua senha' mt='2vw' required/>
 
                     <Group justify='center' mt='3.5vh'>
-                        <Link href='/Dash'>
+                        <Link href='/Dashboard/Geral'>
                             <Button>Login</Button>                
                         </Link>
                     </Group>
