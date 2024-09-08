@@ -1,14 +1,14 @@
 'use client'
 
 import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
-import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Menu, rem, UnstyledButton } from '@mantine/core';
+import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Menu, rem, UnstyledButton, Fieldset, TextInput } from '@mantine/core';
 import { IconCircleOff, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSettings, IconTrash, IconArchive, IconUserCode } from '@tabler/icons-react';
 import Image from 'next/image'
 
 
 const items = [
-    { title: 'Dashboard', href: '#' },
-    { title: 'Geral', href: '#' }
+    { title: 'Users', href: '#' },
+    { title: 'Create', href: '#' }
 ].map((item, index) => (
     <Anchor href={item.href} key={index}>
         {item.title}
@@ -71,6 +71,9 @@ export default function UsersCreatePage() {
                 </Group>
 
             </Group>
+            <Group>
+
+
             {/* Sidebar left */}
             <Group maw={200}>
                 
@@ -128,11 +131,18 @@ export default function UsersCreatePage() {
                         </Badge>
                     }
                 />
-            </Group>
+                
+                </Group>
+                <Group> {/* Page content */}
 
-            <Group> {/* Page content */}
+                    <Fieldset legend="Create a new user">
+                        <TextInput label="Name" placeholder="User name" />
+                        <TextInput label="Email" placeholder="Email" mt="md" />
+                    </Fieldset>
 
+                </Group>
             </Group>
+           
         </>
 
     );
