@@ -1,10 +1,7 @@
 package com.saas.jrs.Modules.Entitys;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,8 +16,8 @@ import lombok.Data;
 public class UserEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;// adicionar validations
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;// adicionar validations
 
     @Column(name = "nome")
     private String name;
