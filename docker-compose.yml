@@ -7,6 +7,6 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin_
-      - POSTGRES_DB=userdata
+      - POSTGRES_DB=crmdb
     ports: 
       - 5432:5432
