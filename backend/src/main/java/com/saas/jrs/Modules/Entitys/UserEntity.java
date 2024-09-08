@@ -33,7 +33,6 @@ public class UserEntity {
     private String email;
 
     @NotBlank
-    @Min(3)
     private String password;
     private String role;
     private String superior;
