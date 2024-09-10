@@ -1,29 +1,47 @@
 'use client'
 
 import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
-import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Menu, rem, UnstyledButton, Fieldset, TextInput, Table, Modal, Button, ActionIcon } from '@mantine/core';
-import { IconCircleOff, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSettings, IconTrash, IconArchive, IconUserCode, IconAdjustments, IconAccessPoint, IconStatusChange, IconPencil } from '@tabler/icons-react';
-import { useDisclosure } from '@mantine/hooks';
+import { NavLink, Badge, Group, Anchor, Breadcrumbs, Avatar, Menu, rem, UnstyledButton, Fieldset, TextInput, Table, Modal, Button, ActionIcon, Autocomplete, NativeSelect, Select, MultiSelect, Stack, Flex } from '@mantine/core';
+import { IconCircleOff, IconLayoutDashboard, IconArrowsLeftRight, IconMessageCircle, IconPhoto, IconSettings, IconTrash, IconArchive, IconUserCode, IconAdjustments, IconAccessPoint, IconStatusChange, IconPencil, IconSearch } from '@tabler/icons-react';
 import Image from 'next/image'
 import CreateUserModal from '@/components/Overlays/Modal';
+import UsersTable from '@/components/Tables/UsersTable';
+import UsersTableApi from '@/components/Tables/UsersTableApi';
 
+// const elements = [
+//     { id: 6, salario: 12.011, cargo: 'Ti', name: 'Weslley', status: 'Ativo' },
+//     { id: 7, salario: 14.007, cargo: 'Ti', name: 'Emerson', status: 'Ativo' },
+//     { id: 39, salario: 88.906, cargo: 'Ti', name: 'Vinnicius', status: 'Inativo' },
+//     { id: 56, salario: 137.33, cargo: 'Vendedor', name: 'Jubliscleiton', status: 'Inativo' },
+//     { id: 58, salario: 140.12, cargo: 'Supervisor', name: 'Betoneira', status: 'Ativo' },
+    
+    
+// ];
 
+// const cargos = ['Vendedor', 'Supervisor', 'Ti', 'Gerente', 'Backoffice'];
+// const nomes = elements.map(element => element.name);
 const items = [
-    { title: 'Users', href: '#' },
-    { title: 'Create', href: '#' }
+    { title: 'Users', href: '#' }
 ].map((item, index) => (
     <Anchor href={item.href} key={index}>
         {item.title}
     </Anchor>
 ));
 
-const elements = [
-    { id: 6, salario: 12.011, cargo: 'Ti', name: 'Weslley', status: 'Ativo' },
-    { id: 7, salario: 14.007, cargo: 'Ti', name: 'Emerson', status: 'Ativo' },
-    { id: 39, salario: 88.906, cargo: 'Ti', name: 'Vinnicius', status: 'Inativo' },
-    { id: 56, salario: 137.33, cargo: 'Vendedor', name: 'Jubliscleiton', status: 'Inativo' },
-    { id: 58, salario: 140.12, cargo: 'Supervisor', name: 'Betoneira', status: 'Ativo' },
-];
+const elements = [];
+const cargos = ['Supervisor', 'Vendedor', 'Ti', 'Gerente'];
+const nomes = ['Betoneira', 'Jubliscleiton', 'Weslley', 'Emerson', 'Vinnicius'];
+
+for (let i = 1; i <= 100; i++) {
+    const element = {
+        id: i,
+        salario: (Math.random() * 100000).toFixed(2),
+        cargo: cargos[Math.floor(Math.random() * cargos.length)],
+        name: nomes[Math.floor(Math.random() * nomes.length)],
+        status: Math.random() > 0.5 ? 'Ativo' : 'Inativo'
+    };
+    elements.push(element);
+}
 
 const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -33,7 +51,7 @@ const rows = elements.map((element) => (
         <Table.Td>{element.salario}</Table.Td>
         <Table.Td>{element.status}</Table.Td>
         <Table.Td>
-            <Group justify='center'>
+            <Group>
 
                 <ActionIcon variant="default">
                     <IconPencil style={{ width: '70%', height: '70%' }} stroke={1.5} />
@@ -108,11 +126,9 @@ export default function UsersCreatePage() {
                 </Group>
 
             </Group>
-            <Group>
-
-
+            <Flex gap='md'>
                 {/* Sidebar left */}
-                <Group maw={200}>
+                <Stack>
                     <NavLink
                         href=""
                         label="Dashboard"
@@ -145,10 +161,6 @@ export default function UsersCreatePage() {
                         opened
                         active
                     >
-
-                        <NavLink label="Create new user" href="/Users/Create" active />
-                        <NavLink label="Modify user" href="/Users/Modify" />
-                        <NavLink label="View users" href="/Users/View" />
                     </NavLink>
 
                     <NavLink
@@ -168,11 +180,27 @@ export default function UsersCreatePage() {
                         }
                     />
 
-                </Group>
+                </Stack>
                 {/* Page content */}
-                <Group justify='flex-end' w='80%'>
-                    <CreateUserModal />
-                    <Table highlightOnHover>
+                <Flex justify='flex-end' direction='column' w='85%'>
+                    {/* <Autocomplete
+                        placeholder="Nome"
+                        leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
+                        data={nomes}
+                        visibleFrom="xs"
+                    />
+                    <MultiSelect
+                        placeholder="Cargos"
+                        leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
+                        data={cargos}
+                    />
+                    <Select placeholder='Status' data={['Ativo', 'Inativo']} clearable w='8vw'/> */}
+                    {/* <Group justify='flex-end'>
+                        <CreateUserModal />
+                    </Group> */}
+                    
+                    {/* <Table highlightOnHover>
+                    
                         <Table.Thead>
                             <Table.Tr>
                                 <Table.Th>Id</Table.Th>
@@ -184,10 +212,14 @@ export default function UsersCreatePage() {
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>{rows}</Table.Tbody>
-                    </Table>
+                    </Table> */}
+                    <Group w='100%'>
+                        <UsersTableApi />
+                    </Group>
+                    
 
-                </Group>
-            </Group>
+                </Flex>
+            </Flex>
 
         </>
 

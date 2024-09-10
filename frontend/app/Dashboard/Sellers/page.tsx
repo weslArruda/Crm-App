@@ -99,14 +99,10 @@ export default function DashPage() {
                 </NavLink>
 
                 <NavLink
-                    href="#required-for-focus"
+                    href="/Users"
                     label="Users"
                     leftSection={<IconUserCode size="1rem" stroke={1.5} />}
                     childrenOffset={18}>
-
-                    <NavLink label="Create new user" href="/Users/Create" />
-                    <NavLink label="Modify user" href="/Users/Modify" />
-                    <NavLink label="View users" href="/Users/View" />
                 </NavLink>
 
                 <NavLink

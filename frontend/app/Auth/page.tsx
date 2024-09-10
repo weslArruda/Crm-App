@@ -13,7 +13,7 @@ export default function AuthPage() {
         
             <Group justify='center' m='25vh' >
                 
-                <Fieldset legend='' radius='lg' mih='28vw' miw='300px' maw='50vw' mah='300px' w='20vw' h='30vh'>
+                <Fieldset legend='' radius='lg' mih='320px' miw='300px' w='20vw' h='100%'>
 
                     <Group justify='center'>
                         <h1>Login</h1>
