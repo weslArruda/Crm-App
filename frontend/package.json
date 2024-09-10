@@ -1,5 +1,5 @@
 {
-  "name": "mantine-next-template",
+  "name": "crm-frontend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -20,11 +20,18 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@mantine/core": "7.12.2",
-    "@mantine/hooks": "7.12.2",
+    "@mantine/core": "^7.12.2",
+    "@mantine/dates": "^7.12.2",
+    "@mantine/hooks": "^7.12.2",
+    "@mantine/modals": "^7.12.2",
     "@next/bundle-analyzer": "^14.2.4",
-    "@tabler/icons-react": "^3.6.0",
+    "@tabler/icons-react": "^3.14.0",
+    "@tanstack/react-query": "^5.55.2",
+    "clsx": "^2.1.1",
+    "crm-frontend": "file:",
+    "dayjs": "^1.11.13",
     "mantine-next-template": "file:",
+    "mantine-react-table": "^2.0.0-beta.6",
     "next": "14.2.4",
     "react": "18.3.1",
     "react-dom": "18.3.1"
