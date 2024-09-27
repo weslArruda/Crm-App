@@ -31,7 +31,7 @@ public class UserEntity {
     
     private String nascimento;
     private String cargo;
-    private String superior;
+    private String supervisor;
     private String permissao;
     private String status;
 
