@@ -20,7 +20,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { User, usStates, fakeData } from './makeData';
+import { User, status, cargos, supervisores, permissoes } from './makeData';
 
 
 const Example = () => {
@@ -75,7 +75,7 @@ const Example = () => {
       title: 'Are you sure you want to delete this user?',
       children: (
         <Text>
-          Are you sure you want to delete {row.original.name}? This action cannot be undone.
+          Are you sure you want to delete {row.original.nome}? This action cannot be undone.
         </Text>
       ),
       labels: { confirm: 'Delete', cancel: 'Cancel' },
@@ -92,8 +92,8 @@ const Example = () => {
         size: 80,
       },
       {
-        accessorKey: 'firstName',
-        header: 'First Name',
+        accessorKey: 'nome',
+        header: 'Nome',
         mantineEditTextInputProps: ({ cell, row }) => ({
           type: 'text',
           required: true,
@@ -101,7 +101,7 @@ const Example = () => {
           //store edited user in state to be saved later
           onBlur: (event) => {
             const validationError = !validateRequired(event.currentTarget.value)
-              ? 'Required'
+              ? 'Obrigatório'
               : undefined;
             setValidationErrors({
               ...validationErrors,
@@ -112,8 +112,8 @@ const Example = () => {
         }),
       },
       {
-        accessorKey: 'lastName',
-        header: 'Last Name',
+        accessorKey: 'username',
+        header: 'Username',
         mantineEditTextInputProps: ({ cell, row }) => ({
           type: 'text',
           required: true,
@@ -121,7 +121,27 @@ const Example = () => {
           //store edited user in state to be saved later
           onBlur: (event) => {
             const validationError = !validateRequired(event.currentTarget.value)
-              ? 'Required'
+              ? 'Obrigatório'
+              : undefined;
+            setValidationErrors({
+              ...validationErrors,
+              [cell.id]: validationError,
+            });
+            setEditedUsers({ ...editedUsers, [row.id]: row.original });
+          },
+        }),
+      },
+      {
+        accessorKey: 'senha',
+        header: 'Senha',
+        mantineEditTextInputProps: ({ cell, row }) => ({
+          type: 'text',
+          required: true,
+          error: validationErrors?.[cell.id],
+          //store edited user in state to be saved later
+          onBlur: (event) => {
+            const validationError = !validateRequired(event.currentTarget.value)
+              ? 'Obrigatório'
               : undefined;
             setValidationErrors({
               ...validationErrors,
@@ -152,17 +172,87 @@ const Example = () => {
         }),
       },
       {
-        accessorKey: 'state',
-        header: 'State',
+        accessorKey: 'cargo',
+        header: 'Cargo',
         editVariant: 'select',
-        mantineEditSelectProps: ({ row }) => ({
-          data: usStates,
+        mantineEditSelectProps: ({ cell, row }) => ({
+          data: cargos,
+          required: true,
+          error: validationErrors?.[cell.id],
           //store edited user in state to be saved later
           onChange: (value: any) =>
             setEditedUsers({
               ...editedUsers,
               [row.id]: { ...row.original as User},
             }),
+        }),
+      },
+      {
+        accessorKey: 'supervisor',
+        header: 'Supervisor',
+        editVariant: 'select',
+        mantineEditSelectProps: ({ cell, row }) => ({
+          data: supervisores,
+          required: true,
+          //store edited user in state to be saved later
+          onBlur: (event) => {
+            const validationError = !validateRequired(event.currentTarget.value)
+              ? 'Obrigatório'
+              : undefined;
+            setValidationErrors({
+              ...validationErrors,
+              [cell.id]: validationError,
+            });
+            setEditedUsers({ ...editedUsers, [row.id]: row.original });
+          },
+        }),
+      },
+      {
+        accessorKey: 'permissao',
+        header: 'Permissão',
+        editVariant: 'select',
+        mantineEditSelectProps: ({ cell, row }) => ({
+          data: permissoes,
+          required: true,
+          error: validationErrors?.[cell.id],
+          //store edited user in state to be saved later
+          onBlur: (event) => {
+            const validationError = !validateRequired(event.currentTarget.value)
+              ? 'Obrigatório'
+              : undefined;
+            setValidationErrors({
+              ...validationErrors,
+              [cell.id]: validationError,
+            });
+            setEditedUsers({ ...editedUsers, [row.id]: row.original });
+          },
+        }),
+      },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        editVariant: 'select',
+        mantineEditSelectProps: ({ row }) => ({
+          data: status,
+          required: true,
+          //store edited user in state to be saved later
+          onChange: (value: any) =>
+            setEditedUsers({
+              ...editedUsers,
+              [row.id]: { ...row.original as User},
+            }),
+        }),
+      },
+      {
+        accessorKey: 'createdAt',
+        header: 'Data de criação',
+        mantineEditTextInputProps: ({ cell, row }) => ({
+          type: 'text',
+          required: false,
+          //store edited user in state to be saved later
+          onBlur: (event) => {
+            setEditedUsers({ ...editedUsers, [row.id]: row.original });
+          },
         }),
       },
     ],
@@ -208,7 +298,7 @@ const Example = () => {
         }
         loading={isUpdatingUser}
       >
-        Save
+        Salvar
       </Button>
     ),
     renderTopToolbarCustomActions: ({ table }) => (
@@ -223,7 +313,7 @@ const Example = () => {
           // );
         }}
       >
-        Create New User
+        Cadastrar usuário
       </Button>
     ),
     state: {
@@ -243,8 +333,26 @@ function useCreateUser() {
   return useMutation({
     mutationFn: async (user: User) => {
       //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      console.log('Tentando cadastrar usuario')
+        try {
+          const response = await fetch('http://localhost:8080/user/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Especifica que o corpo da solicitação é JSON
+            },
+            body: JSON.stringify(user), // Converte o objeto de usuário em uma string JSON
+          });
+          console.log('Response:', response)
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+      
+          const createdUser = await response.json(); // Resgata o usuário criado
+          return createdUser;
+        } catch (error) {
+          console.error('Failed to create user:', error);
+          throw error;
+        }
     },
     //client side optimistic update
     onMutate: (newUserInfo: User) => {
@@ -255,12 +363,12 @@ function useCreateUser() {
             ...prevUsers,
             {
               ...newUserInfo,
-              id: (Math.random() + 1).toString(36).substring(7),
+              // id: (Math.random() + 1).toString(36).substring(7),
             },
           ] as User[],
       );
     },
-    // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
   });
 }
 
@@ -270,8 +378,19 @@ function useGetUsers() {
     queryKey: ['users'],
     queryFn: async () => {
       //send api request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve(fakeData);
+      // await new Promise((resolve) => fetch('http://localhost:8080/user/list')); //fake api call
+      // return Promise.resolve(userData);
+      try {
+        const response = await fetch('http://localhost:8080/user/list');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const userData = await response.json();
+        return userData;
+      } catch (error) {
+        console.error('Failed to fetch:', error);
+        throw error;
+      }
     },
     refetchOnWindowFocus: false,
   });
@@ -342,7 +461,7 @@ const validateEmail = (email: string) =>
 
 function validateUser(user: User) {
   return {
-    firstName: !validateRequired(user.email)
+    username: !validateRequired(user.email)
       ? 'Email is Required'
       : '',
     email: !validateEmail(user.email) ? 'Incorrect Email Format' : '',
