@@ -2,6 +2,7 @@ package com.saas.jrs.Modules.Entitys;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class UserEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;// adicionar validations
+    private Long id;// adicionar validations e exceptions
     private String nome;
 
     @NotBlank
@@ -35,7 +36,10 @@ public class UserEntity {
     private String permissao;
     private String status;
 
+    
     @CreationTimestamp()
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
+
 
 }
