@@ -2,12 +2,7 @@ package com.saas.jrs.Modules.Entitys;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ValueGenerationType;
-import org.springframework.beans.factory.annotation.Value;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

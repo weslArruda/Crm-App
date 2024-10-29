@@ -1,7 +1,6 @@
 package com.saas.jrs.Modules.Controllers;
 
 import java.util.List;
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +53,7 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build(); // Retorna 404 se o ID não existir
+            
         }
         userRepository.deleteById(id); // Deleta o usuário
         return ResponseEntity.noContent().build(); // Retorna 204 No Content
