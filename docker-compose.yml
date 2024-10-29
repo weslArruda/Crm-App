@@ -6,7 +6,7 @@ services:
     image: postgres
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin_
+      - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=crmdb
     ports: 
       - 5432:5432
