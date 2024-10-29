@@ -2,7 +2,12 @@ package com.saas.jrs.Modules.Entitys;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.ValueGenerationType;
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +25,13 @@ public class UserEntity {
     private Long id;// adicionar validations e exceptions
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "O username não pode ser vazio")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "A senha não pode ser vazia")
     private String senha;
 
-    @NotBlank
+    @NotBlank(message = "O e-mail não pode ser vazio")
     @Email
     private String email;
     
