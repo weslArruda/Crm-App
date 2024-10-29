@@ -402,8 +402,23 @@ function useUpdateUsers() {
   return useMutation({
     mutationFn: async (users: User[]) => {
       //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      console.log(users)
+      try {
+        const response = await fetch(`http://localhost:8080/user/update/${users}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json', // Especifica que o corpo da solicitação é JSON
+          },
+          body: JSON.stringify(users), // Converte o objeto de usuário em uma string JSON
+        });
+        console.log('Response:', response)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      } catch (error) {
+        console.error('Failed to update user:', error);
+        throw error;
+      }
     },
     //client side optimistic update
     onMutate: (newUsers: User[]) => {
@@ -424,8 +439,22 @@ function useDeleteUser() {
   return useMutation({
     mutationFn: async (userId: string) => {
       //send api update request here
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-      return Promise.resolve();
+      try {
+        const response = await fetch(`http://localhost:8080/user/delete/${userId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', // Especifica que o corpo da solicitação é JSON
+          },
+          body: JSON.stringify(userId), // Converte o objeto de usuário em uma string JSON
+        });
+        console.log('Response:', response)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      } catch (error) {
+        console.error('Failed to delete user:', error);
+        throw error;
+      }
     },
     //client side optimistic update
     onMutate: (userId: string) => {
