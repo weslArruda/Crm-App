@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
+            System.out.println("IP ADDRESS" + localIp);
         } catch (UnknownHostException e ) {
             e.printStackTrace();
         }
